@@ -1,0 +1,315 @@
+{
+  "ApiStatus": true,
+  "ApiStatusCode": 200,
+  "ApiStatusMessage": "string",
+  "Data": {
+    "Currency": "string",
+    "selectedDate": "string",
+    "TotalSale": 0,
+    "skuList": [
+      {
+        "sku": "SKU-001-WIRELESS-EARBUDS",
+        "productName": "Premium Wireless Earbuds with Noise Cancellation",
+        "shippingAmount": 8.5,
+        "amount": 245.75,
+        "refundPercentage": 2.3,
+        "qty": 5,
+        "amount2": 198.45,
+        "qty2": 4
+      },
+      {
+        "sku": "SKU-002-PHONE-CASE",
+        "productName": "Ultra Slim Phone Case - Clear",
+        "shippingAmount": 3.2,
+        "amount": 89.95,
+        "refundPercentage": 1.5,
+        "qty": 7,
+        "amount2": 115.85,
+        "qty2": 9
+      },
+      {
+        "sku": "SKU-003-USB-CABLE",
+        "productName": "USB-C to Lightning Cable 6ft",
+        "shippingAmount": 2.1,
+        "amount": 67.80,
+        "refundPercentage": 0.8,
+        "qty": 12,
+        "amount2": 56.50,
+        "qty2": 10
+      },
+      {
+        "sku": "SKU-004-SCREEN-PROTECTOR",
+        "productName": "Tempered Glass Screen Protector Pack of 3",
+        "shippingAmount": 1.8,
+        "amount": 45.90,
+        "refundPercentage": 1.2,
+        "qty": 9,
+        "amount2": 51.00,
+        "qty2": 10
+      },
+      {
+        "sku": "SKU-005-POWER-BANK",
+        "productName": "20000mAh Fast Charging Power Bank",
+        "shippingAmount": 5.5,
+        "amount": 189.99,
+        "refundPercentage": 3.1,
+        "qty": 6,
+        "amount2": 158.33,
+        "qty2": 5
+      },
+      {
+        "sku": "SKU-006-BLUETOOTH-SPEAKER",
+        "productName": "Waterproof Portable Bluetooth Speaker",
+        "shippingAmount": 6.2,
+        "amount": 325.50,
+        "refundPercentage": 2.7,
+        "qty": 10,
+        "amount2": 293.85,
+        "qty2": 9
+      },
+      {
+        "sku": "SKU-007-SMART-WATCH",
+        "productName": "Fitness Tracker Smart Watch with Heart Monitor",
+        "shippingAmount": 7.8,
+        "amount": 456.75,
+        "refundPercentage": 4.2,
+        "qty": 8,
+        "amount2": 399.88,
+        "qty2": 7
+      },
+      {
+        "sku": "SKU-008-CAR-CHARGER",
+        "productName": "Dual Port Fast Car Charger",
+        "shippingAmount": 2.5,
+        "amount": 78.60,
+        "refundPercentage": 1.1,
+        "qty": 14,
+        "amount2": 89.60,
+        "qty2": 16
+      },
+      {
+        "sku": "SKU-009-LAPTOP-STAND",
+        "productName": "Adjustable Aluminum Laptop Stand",
+        "shippingAmount": 8.9,
+        "amount": 234.88,
+        "refundPercentage": 2.9,
+        "qty": 6,
+        "amount2": 195.73,
+        "qty2": 5
+      },
+      {
+        "sku": "SKU-010-WEBCAM-HD",
+        "productName": "1080P HD Webcam with Microphone",
+        "shippingAmount": 5.6,
+        "amount": 167.40,
+        "refundPercentage": 3.5,
+        "qty": 5,
+        "amount2": 200.88,
+        "qty2": 6
+      },
+      {
+        "sku": "SKU-011-MOUSE-PAD",
+        "productName": "Extended Gaming Mouse Pad XXL",
+        "shippingAmount": 3.8,
+        "amount": 56.75,
+        "refundPercentage": 0.9,
+        "qty": 11,
+        "amount2": 46.36,
+        "qty2": 9
+      },
+      {
+        "sku": "SKU-012-KEYBOARD-WIRELESS",
+        "productName": "Wireless Mechanical Keyboard RGB",
+        "shippingAmount": 9.2,
+        "amount": 389.95,
+        "refundPercentage": 3.8,
+        "qty": 7,
+        "amount2": 334.24,
+        "qty2": 6
+      },
+      {
+        "sku": "SKU-013-HEADPHONE-STAND",
+        "productName": "RGB Headphone Stand with USB Hub",
+        "shippingAmount": 4.5,
+        "amount": 123.45,
+        "refundPercentage": 1.8,
+        "qty": 8,
+        "amount2": 138.60,
+        "qty2": 9
+      },
+      {
+        "sku": "SKU-014-MONITOR-ARM",
+        "productName": "Dual Monitor Desk Mount Arm",
+        "shippingAmount": 12.5,
+        "amount": 567.80,
+        "refundPercentage": 5.2,
+        "qty": 4,
+        "amount2": 425.85,
+        "qty2": 3
+      },
+      {
+        "sku": "SKU-015-CABLE-ORGANIZER",
+        "productName": "Cable Management Kit - 10 Piece Set",
+        "shippingAmount": 2.8,
+        "amount": 34.90,
+        "refundPercentage": 0.6,
+        "qty": 15,
+        "amount2": 41.88,
+        "qty2": 18
+      },
+      {
+        "sku": "SKU-016-LED-STRIP",
+        "productName": "Smart LED Strip Lights 16ft RGB",
+        "shippingAmount": 4.2,
+        "amount": 145.60,
+        "refundPercentage": 2.4,
+        "qty": 9,
+        "amount2": 129.47,
+        "qty2": 8
+      },
+      {
+        "sku": "SKU-017-DESK-LAMP",
+        "productName": "LED Desk Lamp with Wireless Charging",
+        "shippingAmount": 6.8,
+        "amount": 278.45,
+        "refundPercentage": 3.3,
+        "qty": 6,
+        "amount2": 232.04,
+        "qty2": 5
+      },
+      {
+        "sku": "SKU-018-PHONE-HOLDER",
+        "productName": "Magnetic Car Phone Mount",
+        "shippingAmount": 2.3,
+        "amount": 67.80,
+        "refundPercentage": 1.4,
+        "qty": 13,
+        "amount2": 78.00,
+        "qty2": 15
+      },
+      {
+        "sku": "SKU-019-TABLET-CASE",
+        "productName": "Smart Tablet Case with Keyboard",
+        "shippingAmount": 7.5,
+        "amount": 234.75,
+        "refundPercentage": 2.8,
+        "qty": 5,
+        "amount2": 281.70,
+        "qty2": 6
+      },
+      {
+        "sku": "SKU-020-STYLUS-PEN",
+        "productName": "Active Stylus Pen for Tablets",
+        "shippingAmount": 3.1,
+        "amount": 89.95,
+        "refundPercentage": 1.9,
+        "qty": 10,
+        "amount2": 71.96,
+        "qty2": 8
+      },
+      {
+        "sku": "SKU-021-MICROPHONE-USB",
+        "productName": "USB Condenser Microphone for Streaming",
+        "shippingAmount": 8.7,
+        "amount": 456.90,
+        "refundPercentage": 4.1,
+        "qty": 7,
+        "amount2": 390.77,
+        "qty2": 6
+      },
+      {
+        "sku": "SKU-022-RING-LIGHT",
+        "productName": "12 inch LED Ring Light with Stand",
+        "shippingAmount": 9.8,
+        "amount": 345.67,
+        "refundPercentage": 3.6,
+        "qty": 5,
+        "amount2": 276.54,
+        "qty2": 4
+      },
+      {
+        "sku": "SKU-023-LAPTOP-BAG",
+        "productName": "Water Resistant Laptop Backpack 17 inch",
+        "shippingAmount": 7.2,
+        "amount": 189.90,
+        "refundPercentage": 2.5,
+        "qty": 8,
+        "amount2": 213.63,
+        "qty2": 9
+      },
+      {
+        "sku": "SKU-024-GAMING-MOUSE",
+        "productName": "RGB Gaming Mouse 16000 DPI",
+        "shippingAmount": 4.8,
+        "amount": 234.60,
+        "refundPercentage": 3.2,
+        "qty": 9,
+        "amount2": 208.27,
+        "qty2": 8
+      },
+      {
+        "sku": "SKU-025-SSD-EXTERNAL",
+        "productName": "1TB Portable External SSD",
+        "shippingAmount": 6.5,
+        "amount": 678.90,
+        "refundPercentage": 5.5,
+        "qty": 6,
+        "amount2": 565.75,
+        "qty2": 5
+      },
+      {
+        "sku": "SKU-026-HDMI-CABLE",
+        "productName": "8K HDMI Cable 6ft High Speed",
+        "shippingAmount": 2.9,
+        "amount": 45.80,
+        "refundPercentage": 0.7,
+        "qty": 16,
+        "amount2": 52.20,
+        "qty2": 18
+      },
+      {
+        "sku": "SKU-027-COOLING-PAD",
+        "productName": "Laptop Cooling Pad with 6 Fans",
+        "shippingAmount": 8.3,
+        "amount": 167.85,
+        "refundPercentage": 2.6,
+        "qty": 7,
+        "amount2": 143.88,
+        "qty2": 6
+      },
+      {
+        "sku": "SKU-028-PRIVACY-SCREEN",
+        "productName": "Laptop Privacy Screen Filter 15.6 inch",
+        "shippingAmount": 3.6,
+        "amount": 123.70,
+        "refundPercentage": 1.7,
+        "qty": 8,
+        "amount2": 108.58,
+        "qty2": 7
+      },
+      {
+        "sku": "SKU-029-DRAWING-TABLET",
+        "productName": "Graphics Drawing Tablet with Pen",
+        "shippingAmount": 11.2,
+        "amount": 489.95,
+        "refundPercentage": 4.8,
+        "qty": 4,
+        "amount2": 367.46,
+        "qty2": 3
+      },
+      {
+        "sku": "SKU-030-WIFI-EXTENDER",
+        "productName": "WiFi Range Extender AC1200 Dual Band",
+        "shippingAmount": 5.9,
+        "amount": 234.55,
+        "refundPercentage": 3.4,
+        "qty": 6,
+        "amount2": 273.63,
+        "qty2": 7
+      }
+    ],
+    "selectedDate2": "string",
+    "TotalSale2": 0,
+    "totalSize": 30
+  }
+}

@@ -1,5 +1,7 @@
 import { createStore } from 'vuex'
 
+const baseUrl = 'https://iapitest.eva.guru'
+
 interface TokenResponse {
   ApiStatus: boolean
   ApiStatusCode: number
@@ -17,7 +19,22 @@ interface UserInformation {
     id: string
     email: string
     name?: string
+    currency?: string
+    membershipsSystemStatus?: string
+    store?: {
+      storeId: string
+      marketplaceName: string
+    }
   }
+}
+
+interface DailySalesData {
+  date: string
+  profit: number
+  fbaAmount: number
+  fbmAmount: number
+  fbaShippingAmount: number
+  totalSales: number
 }
 
 interface State {
@@ -26,6 +43,7 @@ interface State {
   loginEmail: string | null
   isLoading: boolean
   error: string | null
+  dailySalesData: DailySalesData[]
 }
 
 export default createStore<State>({
@@ -35,6 +53,7 @@ export default createStore<State>({
     loginEmail: localStorage.getItem('loginEmail'),
     isLoading: false,
     error: null,
+    dailySalesData: [],
   },
   getters: {
     isAuthenticated: (state) => !!state.accessToken,
@@ -70,6 +89,9 @@ export default createStore<State>({
     SET_ERROR(state, error: string | null) {
       state.error = error
     },
+    SET_DAILY_SALES_DATA(state, data: DailySalesData[]) {
+      state.dailySalesData = data
+    },
   },
   actions: {
     async login({ commit }, { email, password }: { email: string; password: string }) {
@@ -77,7 +99,7 @@ export default createStore<State>({
       commit('SET_ERROR', null)
 
       try {
-        const response = await fetch('https://iapitest.eva.guru/oauth/token', {
+        const response = await fetch(`${baseUrl}/oauth/token`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -116,26 +138,57 @@ export default createStore<State>({
     },
 
     async fetchUserInformation({ commit, state }) {
-      if (!state.accessToken) return
+      if (!state.accessToken || !state.loginEmail) return
 
       try {
-        const response = await fetch('https://iapitest.eva.guru/user/user-information', {
-          method: 'GET',
+        const response = await fetch(`${baseUrl}/user/user-information`, {
+          method: 'POST',
           headers: {
             Authorization: `Bearer ${state.accessToken}`,
             'Content-Type': 'application/json',
           },
+          body: JSON.stringify({
+            email: state.loginEmail,
+          }),
         })
 
         if (!response.ok) {
-          throw new Error('Failed to fetch user information')
+          const errorData = await response.json()
+          console.error('User information API error:', errorData)
+          throw new Error(errorData.ApiStatusMessage || 'Failed to fetch user information')
         }
 
-        const data: UserInformation = await response.json()
-        commit('SET_USER_INFO', data)
+        const data = await response.json()
+
+        if (!data.ApiStatus) {
+          throw new Error(data.ApiStatusMessage || 'Failed to fetch user information')
+        }
+
+        const userData = data.Data.user
+        const firstStore = userData.store && userData.store.length > 0 ? userData.store[0] : null
+
+        const userInfo: UserInformation = {
+          user: {
+            id: userData.userId || '',
+            email: userData.email || state.loginEmail || '',
+            name: userData.firstName && userData.lastName
+              ? `${userData.firstName} ${userData.lastName}`
+              : userData.firstName || userData.lastName,
+            currency: firstStore?.currency,
+            membershipsSystemStatus: userData.accountStatus?.toString(),
+            store: firstStore ? {
+              storeId: firstStore.storeId,
+              marketplaceName: firstStore.marketplaceName
+            } : undefined
+          }
+        }
+
+        console.log('Processed userInfo:', userInfo)
+        commit('SET_USER_INFO', userInfo)
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'An error occurred'
         commit('SET_ERROR', errorMessage)
+        console.error('fetchUserInformation error:', err)
         throw err
       }
     },
@@ -143,7 +196,7 @@ export default createStore<State>({
     async logout({ commit, state }) {
       if (state.accessToken) {
         try {
-          await fetch('https://iapitest.eva.guru/user/logout', {
+          await fetch(`${baseUrl}/user/logout`, {
             method: 'POST',
             headers: {
               Authorization: `Bearer ${state.accessToken}`,
@@ -158,6 +211,81 @@ export default createStore<State>({
       commit('SET_ACCESS_TOKEN', null)
       commit('SET_USER_INFO', null)
       commit('SET_LOGIN_EMAIL', null)
+    },
+
+    async fetchDailySalesData({ commit, state }, { day }: { day: number }) {
+      if (!state.accessToken || !state.userInfo?.user?.store) {
+        throw new Error('Missing authentication or store information')
+      }
+
+      try {
+        const mockData = await import('../data/mockSalesData.json')
+        const data = mockData.default
+
+        console.log('Daily sales API response (mock):', data)
+
+        // Filter data based on selected day range
+        const allItems = data.Data.item
+        const totalItems = allItems.length
+        const startIndex = Math.max(0, totalItems - day)
+        const filteredItems = allItems.slice(startIndex)
+
+        console.log(`Filtering ${day} days from ${totalItems} total items:`, filteredItems.length)
+
+        // Transform API response to our chart format
+        const transformedData: DailySalesData[] = filteredItems.map((item: {
+          date: string
+          profit?: number
+          fbaAmount?: number
+          fbmAmount?: number
+          fbaShippingAmount?: number
+        }) => {
+          const dateObj = new Date(item.date)
+          const formattedDate = dateObj.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric'
+          })
+
+          const fbaAmount = item.fbaAmount || 0
+          const fbmAmount = item.fbmAmount || 0
+
+          return {
+            date: formattedDate,
+            profit: item.profit || 0,
+            fbaAmount: fbaAmount,
+            fbmAmount: fbmAmount,
+            fbaShippingAmount: item.fbaShippingAmount || 0,
+            totalSales: fbaAmount + fbmAmount,
+          }
+        })
+
+        console.log('Transformed chart data:', transformedData)
+        commit('SET_DAILY_SALES_DATA', transformedData)
+
+        const { storeId, marketplaceName } = state.userInfo.user.store
+
+        const response = await fetch(`${baseUrl}/data/daily-sales-overview`, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${state.accessToken}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            marketplace: marketplaceName,
+            sellerId: storeId,
+            requestStatus: 0,
+            day: day,
+            excludeYoYData: true,
+            customDateData: null,
+          }),
+        })
+
+
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : 'An error occurred'
+        commit('SET_ERROR', errorMessage)
+        throw err
+      }
     },
   },
 })
