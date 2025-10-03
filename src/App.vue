@@ -1,11 +1,28 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { onMounted } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+
+const store = useStore()
+const router = useRouter()
+
+onMounted(async () => {
+  if (store.getters.isAuthenticated) {
+    try {
+      await store.dispatch('fetchUserInformation')
+      if (router.currentRoute.value.path === '/login') {
+        router.push('/dashboard')
+      }
+    } catch (err) {
+      console.error('Failed to fetch user information:', err)
+      store.dispatch('logout')
+      router.push('/login')
+    }
+  }
+})
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <router-view />
 </template>
 
-<style scoped></style>
