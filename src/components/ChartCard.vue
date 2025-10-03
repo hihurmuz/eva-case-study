@@ -153,7 +153,7 @@ const drawChart = () => {
     .enter()
     .append('g')
     .attr('class', 'layer')
-    .attr('fill', (d, i) => colors[i])
+    .attr('fill', (d, i) => colors[i] || '#999')
     .selectAll('rect')
     .data((d) => d)
     .enter()
@@ -246,7 +246,7 @@ const drawChart = () => {
     d3
       .axisLeft(y)
       .ticks(5)
-      .tickFormat((d) => `$${(d as number) / 1000}k`)
+      .tickFormat((d: d3.NumberValue) => `$${(d as number) / 1000}k`)
   )
 
   yAxis.select('.domain').style('stroke', '#E5E7EB')
@@ -262,8 +262,8 @@ const drawChart = () => {
     .attr('class', 'grid')
     .attr('x1', 0)
     .attr('x2', width)
-    .attr('y1', (d) => y(d))
-    .attr('y2', (d) => y(d))
+    .attr('y1', (d: number) => y(d))
+    .attr('y2', (d: number) => y(d))
     .style('stroke', '#F3F4F6')
     .style('stroke-dasharray', '3,3')
 

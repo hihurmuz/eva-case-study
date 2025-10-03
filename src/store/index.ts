@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import type { ActionContext } from 'vuex'
 
 const baseUrl = 'https://iapitest.eva.guru'
 
@@ -46,7 +47,7 @@ interface State {
   dailySalesData: DailySalesData[]
 }
 
-export default createStore<State>({
+const store = createStore<State>({
   state: {
     accessToken: localStorage.getItem('accessToken'),
     userInfo: JSON.parse(localStorage.getItem('userInfo') || 'null'),
@@ -56,10 +57,10 @@ export default createStore<State>({
     dailySalesData: [],
   },
   getters: {
-    isAuthenticated: (state) => !!state.accessToken,
+    isAuthenticated: (state: State) => !!state.accessToken,
   },
   mutations: {
-    SET_ACCESS_TOKEN(state, token: string | null) {
+    SET_ACCESS_TOKEN(state: State, token: string | null) {
       state.accessToken = token
       if (token) {
         localStorage.setItem('accessToken', token)
@@ -67,7 +68,7 @@ export default createStore<State>({
         localStorage.removeItem('accessToken')
       }
     },
-    SET_USER_INFO(state, userInfo: UserInformation | null) {
+    SET_USER_INFO(state: State, userInfo: UserInformation | null) {
       state.userInfo = userInfo
       if (userInfo) {
         localStorage.setItem('userInfo', JSON.stringify(userInfo))
@@ -75,7 +76,7 @@ export default createStore<State>({
         localStorage.removeItem('userInfo')
       }
     },
-    SET_LOGIN_EMAIL(state, email: string | null) {
+    SET_LOGIN_EMAIL(state: State, email: string | null) {
       state.loginEmail = email
       if (email) {
         localStorage.setItem('loginEmail', email)
@@ -83,18 +84,18 @@ export default createStore<State>({
         localStorage.removeItem('loginEmail')
       }
     },
-    SET_LOADING(state, isLoading: boolean) {
+    SET_LOADING(state: State, isLoading: boolean) {
       state.isLoading = isLoading
     },
-    SET_ERROR(state, error: string | null) {
+    SET_ERROR(state: State, error: string | null) {
       state.error = error
     },
-    SET_DAILY_SALES_DATA(state, data: DailySalesData[]) {
+    SET_DAILY_SALES_DATA(state: State, data: DailySalesData[]) {
       state.dailySalesData = data
     },
   },
   actions: {
-    async login({ commit }, { email, password }: { email: string; password: string }) {
+    async login({ commit }: ActionContext<State, State>, { email, password }: { email: string; password: string }) {
       commit('SET_LOADING', true)
       commit('SET_ERROR', null)
 
@@ -124,7 +125,7 @@ export default createStore<State>({
         commit('SET_LOGIN_EMAIL', email)
 
         try {
-          await this.dispatch('fetchUserInformation')
+          await store.dispatch('fetchUserInformation')
         } catch (userInfoErr) {
           console.warn('Failed to fetch user information:', userInfoErr)
         }
@@ -137,7 +138,7 @@ export default createStore<State>({
       }
     },
 
-    async fetchUserInformation({ commit, state }) {
+    async fetchUserInformation({ commit, state }: ActionContext<State, State>) {
       if (!state.accessToken || !state.loginEmail) return
 
       try {
@@ -193,7 +194,7 @@ export default createStore<State>({
       }
     },
 
-    async logout({ commit, state }) {
+    async logout({ commit, state }: ActionContext<State, State>) {
       if (state.accessToken) {
         try {
           await fetch(`${baseUrl}/user/logout`, {
@@ -213,7 +214,7 @@ export default createStore<State>({
       commit('SET_LOGIN_EMAIL', null)
     },
 
-    async fetchDailySalesData({ commit, state }, { day }: { day: number }) {
+    async fetchDailySalesData({ commit, state }: ActionContext<State, State>, { day }: { day: number }) {
       if (!state.accessToken || !state.userInfo?.user?.store) {
         throw new Error('Missing authentication or store information')
       }
@@ -289,3 +290,5 @@ export default createStore<State>({
     },
   },
 })
+
+export default store
