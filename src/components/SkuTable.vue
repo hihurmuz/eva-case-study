@@ -1,3 +1,59 @@
+<script setup lang="ts">
+import { ref, watch, computed } from 'vue'
+import { useStore } from 'vuex'
+
+interface Props {
+  selectedDates: string[]
+}
+
+const props = defineProps<Props>()
+const emit = defineEmits<{
+  (e: 'removeDate', date: string): void
+}>()
+const store = useStore()
+
+const skuData = ref<any[]>([])
+const refundRates = ref<Record<string, number>>({})
+const isLoading = ref(false)
+const currentPage = ref(1)
+const pageSize = 10
+const totalItems = ref(0)
+
+const isDaysCompare = computed(() => props.selectedDates.length === 2)
+
+const fetchSkuList = async (pageNum: number = 1) => {
+  if (props.selectedDates.length === 0) return
+
+  const userInfo = store.state.userInfo
+  if (!userInfo?.user?.store) return
+
+  isLoading.value = true
+
+  try {
+    const mockData = await import('../data/mockSkuData.json')
+    const data = mockData.default
+
+    console.log('SKU list API response (mock):', data)
+
+    if (data.ApiStatus && data.Data?.skuList) {
+      skuData.value = data.Data.skuList
+      totalItems.value = data.Data.totalSize || data.Data.skuList.length
+
+      await fetchRefundRates(data.Data.skuList.map((item: any) => item.sku))
+    }
+  } catch (err) {
+    console.error('Failed to fetch SKU list:', err)
+  } finally {
+    isLoading.value = false
+  }
+}
+
+const fetchRefundRates = async (skuList: string[]) => {
+  if (skuList.length === 0) return
+
+  try {
+    const rates: Record<string, number> = {}
+    skuList.forEach((sku) => {
       rates[sku] = Math.random() * 7.5 + 0.5
     })
     refundRates.value = rates
@@ -146,3 +202,26 @@ watch(() => props.selectedDates, () => {
           </button>
           <button
             v-for="page in Math.min(5, totalPages)"
+            :key="page"
+            @click="goToPage(page)"
+            :class="[
+              'px-3 py-1 rounded border text-sm',
+              currentPage === page
+                ? 'bg-indigo-600 text-white border-indigo-600'
+                : 'border-gray-300 hover:bg-gray-50'
+            ]"
+          >
+            {{ page }}
+          </button>
+          <button
+            @click="goToPage(currentPage + 1)"
+            :disabled="currentPage === totalPages"
+            class="px-3 py-1 rounded border border-gray-300 text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
