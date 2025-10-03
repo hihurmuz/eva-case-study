@@ -265,7 +265,7 @@ const store = createStore<State>({
 
         const { storeId, marketplaceName } = state.userInfo.user.store
 
-        const response = await fetch(`${baseUrl}/data/daily-sales-overview`, {
+        await fetch(`${baseUrl}/data/daily-sales-overview`, {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${state.accessToken}`,
