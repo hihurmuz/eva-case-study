@@ -1,70 +1,139 @@
-# eva-case-study
+# EVA Case Study - Sales Dashboard
 
-This template should help get you started developing with Vue 3 in Vite.
+A modern sales analytics dashboard built with Vue 3, TypeScript, Vuex, and D3.js for data visualization.
 
-## Recommended IDE Setup
+## 🚀 Live Demo
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+**[View Live Application](https://eva-case-study-taupe.vercel.app/)**
 
-## Recommended Browser Setup
+## 📋 Features
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- **User Authentication**: Secure login system with token-based authentication
+- **Sales Analytics Dashboard**:
+  - Interactive daily sales charts with D3.js
+  - Multiple period selection (7, 14, 30, 60 days)
+  - Metric filtering (FBA, FBM, Profit)
+  - Date range comparison
+- **SKU Management**: Product SKU table with detailed sales information
+- **Responsive Design**: Fully responsive UI with Tailwind CSS
+- **State Management**: Centralized state management with Vuex
+- **Type Safety**: Full TypeScript support
 
-## Type Support for `.vue` Imports in TS
+## 🛠️ Tech Stack
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+- **Frontend Framework**: Vue 3 (Composition API)
+- **Language**: TypeScript
+- **State Management**: Vuex 4
+- **Data Visualization**: D3.js v7
+- **Styling**: Tailwind CSS
+- **Build Tool**: Vite
+- **Testing**: Vitest (Unit) + Cypress (E2E)
+- **Code Quality**: ESLint + Prettier
 
-## Customize configuration
+## 📦 Project Setup
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+### Prerequisites
 
-## Project Setup
+- Node.js `^20.19.0 || >=22.12.0`
+- npm `11.5.2` or later
+
+### Installation
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Development
+
+Run the development server with hot-reload:
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### Production Build
+
+Type-check, compile and minify for production:
 
 ```sh
 npm run build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+Preview production build locally:
+
+```sh
+npm run preview
+```
+
+## 🧪 Testing
+
+### Unit Tests with Vitest
 
 ```sh
 npm run test:unit
 ```
 
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
+### End-to-End Tests with Cypress
+
+Development mode (interactive):
 
 ```sh
 npm run test:e2e:dev
 ```
 
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
+Production mode:
 
 ```sh
 npm run build
 npm run test:e2e
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+## 🔧 Code Quality
+
+### Lint with ESLint
 
 ```sh
 npm run lint
 ```
+
+### Format with Prettier
+
+```sh
+npm run format
+```
+
+## 🏗️ Project Structure
+
+```
+eva-case-study/
+├── src/
+│   ├── components/      # Vue components
+│   ├── views/          # Page views
+│   ├── store/          # Vuex store
+│   ├── router/         # Vue Router config
+│   ├── data/           # Mock data
+│   └── assets/         # Static assets
+├── dist/               # Production build
+└── cypress/            # E2E tests
+```
+
+## 🎨 IDE Setup
+
+**Recommended:**
+- [VS Code](https://code.visualstudio.com/)
+- [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) extension
+- Disable Vetur if installed
+
+**Browser DevTools:**
+- Chromium: [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
+- Firefox: [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
+
+## 📝 License
+
+This project is private and confidential.
+
+## 🔗 Links
+
+- **Live Demo**: https://eva-case-study-taupe.vercel.app/
+- **Vite Docs**: https://vite.dev/config/
+- **Vue 3 Docs**: https://vuejs.org/
