@@ -1,10 +1,15 @@
 import { createStore } from 'vuex'
 
 interface TokenResponse {
-  access_token: string
-  expires_in: number
-  token_type: string
-  refresh_token?: string
+  ApiStatus: boolean
+  ApiStatusCode: number
+  ApiStatusMessage: string
+  Data: {
+    AccessToken: string
+    RefreshToken: string
+    TokenType: string
+    ExpiresAt: string
+  }
 }
 
 interface UserInformation {
@@ -93,10 +98,14 @@ export default createStore<State>({
         }
 
         const data: TokenResponse = await response.json()
-        commit('SET_ACCESS_TOKEN', data.access_token)
+        commit('SET_ACCESS_TOKEN', data.Data.AccessToken)
         commit('SET_LOGIN_EMAIL', email)
 
-        await this.dispatch('fetchUserInformation')
+        try {
+          await this.dispatch('fetchUserInformation')
+        } catch (userInfoErr) {
+          console.warn('Failed to fetch user information:', userInfoErr)
+        }
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'An error occurred'
         commit('SET_ERROR', errorMessage)
@@ -131,7 +140,21 @@ export default createStore<State>({
       }
     },
 
-    logout({ commit }) {
+    async logout({ commit, state }) {
+      if (state.accessToken) {
+        try {
+          await fetch('https://iapitest.eva.guru/user/logout', {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${state.accessToken}`,
+              'Content-Type': 'application/json',
+            },
+          })
+        } catch (err) {
+          console.warn('Logout API call failed:', err)
+        }
+      }
+
       commit('SET_ACCESS_TOKEN', null)
       commit('SET_USER_INFO', null)
       commit('SET_LOGIN_EMAIL', null)
