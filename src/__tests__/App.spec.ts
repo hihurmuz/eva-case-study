@@ -110,7 +110,7 @@ describe('App', () => {
     it('should work with store and router', () => {
       const wrapper = mountComponent()
 
-      expect(wrapper.vm.$store).toBeDefined()
+      expect((wrapper.vm as any).$store).toBeDefined()
       expect(wrapper.vm.$router).toBeDefined()
     })
 

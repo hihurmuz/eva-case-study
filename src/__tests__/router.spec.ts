@@ -158,12 +158,12 @@ describe('Router', () => {
   describe('Route Components', () => {
     it('should load LoginForm component for login route', () => {
       const loginRoute = router.resolve({ name: 'login' })
-      expect(loginRoute.matched[0].components?.default).toBe(LoginForm)
+      expect(loginRoute.matched[0]?.components?.default).toBe(LoginForm)
     })
 
     it('should load Dashboard component for dashboard route', () => {
       const dashboardRoute = router.resolve({ name: 'dashboard' })
-      expect(dashboardRoute.matched[0].components?.default).toBe(Dashboard)
+      expect(dashboardRoute.matched[0]?.components?.default).toBe(Dashboard)
     })
   })
 

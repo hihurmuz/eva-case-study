@@ -87,7 +87,7 @@ describe('SkuTable', () => {
       const wrapper = mountComponent({ selectedDates: ['Jan 1', 'Jan 2'] })
 
       const removeButtons = wrapper.findAll('button').filter((btn) => btn.text() === '×')
-      await removeButtons[0].trigger('click')
+      await removeButtons[0]?.trigger('click')
 
       expect(wrapper.emitted('removeDate')).toBeTruthy()
       expect(wrapper.emitted('removeDate')?.[0]).toEqual(['Jan 1'])
@@ -97,7 +97,7 @@ describe('SkuTable', () => {
       const wrapper = mountComponent({ selectedDates: ['Jan 1', 'Jan 2'] })
 
       const removeButtons = wrapper.findAll('button').filter((btn) => btn.text() === '×')
-      await removeButtons[1].trigger('click')
+      await removeButtons[1]?.trigger('click')
 
       expect(wrapper.emitted('removeDate')?.[0]).toEqual(['Jan 2'])
     })

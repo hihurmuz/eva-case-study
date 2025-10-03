@@ -63,10 +63,10 @@ describe('ChartCard', () => {
 
       const options = wrapper.findAll('option')
       expect(options.length).toBe(4)
-      expect(options[0].text()).toBe('Last 60 Days')
-      expect(options[1].text()).toBe('Last 30 Days')
-      expect(options[2].text()).toBe('Last 14 Days')
-      expect(options[3].text()).toBe('Last 7 Days')
+      expect(options[0]?.text()).toBe('Last 60 Days')
+      expect(options[1]?.text()).toBe('Last 30 Days')
+      expect(options[2]?.text()).toBe('Last 14 Days')
+      expect(options[3]?.text()).toBe('Last 7 Days')
     })
 
     it('should render metric filter buttons', () => {
