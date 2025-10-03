@@ -19,7 +19,7 @@ const handleLogout = () => {
 <template>
   <div class="min-h-screen bg-gray-50">
     <header class="bg-white shadow-sm px-6 py-4 flex justify-between items-center">
-      <h1 class="text-2xl font-semibold text-gray-800">Dashboard</h1>
+      <img src="@/assets/eva-logo.svg" alt="Eva Logo" class="h-8" />
       <button
         @click="handleLogout"
         class="px-6 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition"
