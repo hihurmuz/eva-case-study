@@ -6,6 +6,11 @@ A modern sales analytics dashboard built with Vue 3, TypeScript, Vuex, and D3.js
 
 **[View Live Application](https://eva-case-study-taupe.vercel.app/)**
 
+## 🖼️ Screenshots
+
+![Login Page](src/assets/images/app-1.png)
+![Dashboard](src/assets/images/app-2.png)
+
 ## 📋 Features
 
 - **User Authentication**: Secure login system with token-based authentication
